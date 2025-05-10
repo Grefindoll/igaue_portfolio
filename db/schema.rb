@@ -10,9 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_05_09_152218) do
+ActiveRecord::Schema[7.0].define(version: 2025_05_10_094632) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "flower_spots", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "address", null: false
+    t.float "latitude"
+    t.float "longitude"
+    t.integer "peak_season_months", default: [], array: true
+    t.integer "parking", default: 0, null: false
+    t.integer "fee_type", default: 0, null: false
+    t.text "fee_detail"
+    t.text "flower_type_details"
+    t.string "official_url"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["latitude", "longitude"], name: "index_flower_spots_on_latitude_and_longitude"
+    t.index ["user_id"], name: "index_flower_spots_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -28,4 +46,5 @@ ActiveRecord::Schema[7.0].define(version: 2025_05_09_152218) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "flower_spots", "users"
 end
