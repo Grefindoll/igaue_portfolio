@@ -1,7 +1,7 @@
 <%= form_with model: flower_spot, local: true, multipart: true do |form| %>
   <% if flower_spot.errors.any? %>
     <div id="error_explanation">
-      <h2><%= flower_spot.error.count %>件のエラーが原因で、お花畑を保存できませんでした。</h2>
+      <h2><%= flower_spot.errors.count %>件のエラーがあります。</h2>
       <ul>
         <% flower_spot.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -38,19 +38,12 @@
 
   <div>
     <%= form.label :parking, "駐車場の有無" %><br>
-    <%# FlowerSpot.parkings.keys はモデルにenumを定義してから使えます (例: { unknown: 0, available: 1, not_available: 2 }) %>
-    <%= form.select :parking, FlowerSpot.parkings.keys.map { |k| [FlowerSpot.human_enum_name(:parking, k), k] }, include_blank: "選択してください" %>
-    <%# またはラジオボタンでも良いでしょう %>
-    <%# FlowerSpot.parkings.keys.each do |parking_key| %>
-    <%#   <%= form.radio_button :parking, parking_key %>
-    <%#   <%= form.label "parking_#{parking_key}", FlowerSpot.human_enum_name(:parking, parking_key) %>
-    <%# <% end %>
+    <%= form.select :parking, FlowerSpot.parkings.keys, include_blank: "選択してください" %>
   </div>
 
   <div>
     <%= form.label :fee_type, "料金体系" %><br>
-    <%# FlowerSpot.fee_types.keys はモデルにenumを定義してから使えます (例: { unknown: 0, free: 1, paid: 2, partial_paid: 3 }) %>
-    <%= form.select :fee_type, FlowerSpot.fee_types.keys.map { |k| [FlowerSpot.human_enum_name(:fee_type, k), k] }, include_blank: "選択してください" %>
+    <%= form.select :fee_type, FlowerSpot.fee_types.keys, include_blank: "選択してください" %>
   </div>
 
   <div>
@@ -67,8 +60,6 @@
     <%= form.label :official_url, "公式サイトURL" %><br>
     <%= form.url_field :official_url, placeholder: "https://example.com" %>
   </div>
-
-  <%# ↑↑↑ ここまで項目を追加 ↑↑↑ %>
 
   <div>
     <%= form.submit "登録する" %>
