@@ -1,0 +1,76 @@
+<%= form_with model: flower_spot, local: true, multipart: true do |form| %>
+  <% if flower_spot.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= flower_spot.error.count %>件のエラーが原因で、お花畑を保存できませんでした。</h2>
+      <ul>
+        <% flower_spot.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, "お花畑の名前" %><br>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :address, "住所" %><br>
+    <%= form.text_field :address %>
+  </div>
+
+  <div>
+    <%= form.label :photos, "写真 (3枚～5枚程度)" %><br>
+    <%= form.file_field :photos, multiple: true %>
+  </div>
+
+  <div>
+    <p>見頃の時期（複数選択可）：</p>
+    <% (1..12).each do |month| %>
+      <%= form.check_box :peak_season_months, { multiple: true, name: "flower_spot[peak_season_months][]", include_hidden: false, checked: flower_spot.peak_season_months&.include?(month) }, month, nil %>
+      <%= form.label "peak_season_months_#{month}", "#{month}月" %>
+    <% end %>
+    <%# include_hidden: false は、チェックがない場合に空の配列が送られるようにするための一つの方法です %>
+    <%# checked: flower_spot.peak_season_months&.include?(month) は編集時用です。新規作成時は flower_spot.peak_season_months は空配列なのでチェックされません。 %>
+    <%# name: "flower_spot[peak_season_months][]" で Rails が配列としてパラメータを受け取れるようにします。form.check_box がこれをよしなにやってくれることも多いです。 %>
+  </div>
+
+  <div>
+    <%= form.label :parking, "駐車場の有無" %><br>
+    <%# FlowerSpot.parkings.keys はモデルにenumを定義してから使えます (例: { unknown: 0, available: 1, not_available: 2 }) %>
+    <%= form.select :parking, FlowerSpot.parkings.keys.map { |k| [FlowerSpot.human_enum_name(:parking, k), k] }, include_blank: "選択してください" %>
+    <%# またはラジオボタンでも良いでしょう %>
+    <%# FlowerSpot.parkings.keys.each do |parking_key| %>
+    <%#   <%= form.radio_button :parking, parking_key %>
+    <%#   <%= form.label "parking_#{parking_key}", FlowerSpot.human_enum_name(:parking, parking_key) %>
+    <%# <% end %>
+  </div>
+
+  <div>
+    <%= form.label :fee_type, "料金体系" %><br>
+    <%# FlowerSpot.fee_types.keys はモデルにenumを定義してから使えます (例: { unknown: 0, free: 1, paid: 2, partial_paid: 3 }) %>
+    <%= form.select :fee_type, FlowerSpot.fee_types.keys.map { |k| [FlowerSpot.human_enum_name(:fee_type, k), k] }, include_blank: "選択してください" %>
+  </div>
+
+  <div>
+    <%= form.label :fee_detail, "料金詳細（有料の場合など）" %><br>
+    <%= form.text_area :fee_detail, rows: 3 %>
+  </div>
+
+  <div>
+    <%= form.label :flower_type_details, "お花の種類（自由入力）" %><br>
+    <%= form.text_area :flower_type_details, rows: 3 %>
+  </div>
+
+  <div>
+    <%= form.label :official_url, "公式サイトURL" %><br>
+    <%= form.url_field :official_url, placeholder: "https://example.com" %>
+  </div>
+
+  <%# ↑↑↑ ここまで項目を追加 ↑↑↑ %>
+
+  <div>
+    <%= form.submit "登録する" %>
+  </div>
+<% end %>
