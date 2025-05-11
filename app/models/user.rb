@@ -5,4 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :flower_spots, dependent: :destroy
+
+  def admin?
+    admin # adminカラムがtrueならtrue、falseならfalseを返す
+  end
 end

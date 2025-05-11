@@ -1,13 +1,14 @@
 class FlowerSpotsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_flower_spot, only: [:show, :edit]
+  before_action :set_flower_spot, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_correct_user_or_admin, only: [:edit, :update, :destroy]
 
   def index
-    # これから実装するかも
+    @flower_spots = FlowerSpot.all.order(created_at: :desc)
   end
 
   def show
-    # before_action でセット済み
+    # @flower_spot は set_flower_spot でセット済み
   end
 
   def new
@@ -22,6 +23,22 @@ class FlowerSpotsController < ApplicationController
     else
       flash.now[:alert] = 'お花畑情報の登録に失敗しました。入力内容を確認してください。'
       render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    # before_action でset_flower_spot済み。
+    # ensure_correct_user_or_admin で権限チェック済み
+  end
+
+  def update
+    # before_action でset_flower_spot済み。
+    # ensure_correct_user_or_admin で権限チェック済み
+    if @flower_spot.update(flower_spot_params)
+      redirect_to @flower_spot, notice: 'お花畑情報が正常に更新されました。'
+    else
+      flash.now[:alert] = 'お花畑情報の更新に失敗しました。入力内容を確認してください。'
+      render :edit, status: :unprocessable_entity # editテンプレートを再表示
     end
   end
 
@@ -44,5 +61,12 @@ class FlowerSpotsController < ApplicationController
       :official_url,
       photos: [] # Active Storageで複数ファイルを受け取る場合
     )
+  end
+
+  def ensure_correct_user_or_admin
+    # current_user.admin? は User モデルに admin 属性 (boolean) と admin? メソッドを別途定義する必要あり
+    unless @flower_spot.user == current_user || (current_user.respond_to?(:admin?) && current_user.admin?)
+      redirect_to root_path, alert: '権限がありません。'
+    end
   end
 end

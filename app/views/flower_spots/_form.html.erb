@@ -62,6 +62,6 @@
   </div>
 
   <div>
-    <%= form.submit "登録する" %>
+    <%= form.submit (flower_spot.persisted? ? "更新する" : "登録する") %>
   </div>
 <% end %>
