@@ -10,10 +10,12 @@
   <%= @flower_spot.address %>
 </p>
 
-<%= image_tag @flower_spot.photos %>
+<p>
+  <% if @flower_spot.photos.attached? %>
+    <%= image_tag @flower_spot.photos.first %>
+  <% end %>
+</p>
 
 <% if @flower_spot.user == current_user || (current_user&.admin?) %>
   <%= link_to 'このお花畑を編集する', edit_flower_spot_path(@flower_spot) %>
 <% end %>
-
-<p>あとから色々追加します</p>

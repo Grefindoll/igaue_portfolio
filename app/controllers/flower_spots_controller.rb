@@ -38,8 +38,14 @@ class FlowerSpotsController < ApplicationController
       redirect_to @flower_spot, notice: 'お花畑情報が正常に更新されました。'
     else
       flash.now[:alert] = 'お花畑情報の更新に失敗しました。入力内容を確認してください。'
-      render :edit, status: :unprocessable_entity # editテンプレートを再表示
+      render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    # before_action でset_flower_spot済み。
+    @flower_spot.destroy
+    redirect_to root_path, notice: 'お花畑情報を削除しました。', status: :see_other
   end
 
 

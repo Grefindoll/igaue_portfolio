@@ -5,3 +5,6 @@
 <hr>
 <%= link_to '詳細に戻る', @flower_spot %> |
 <%= link_to '一覧に戻る', flower_spots_path %>
+<% if @flower_spot.user == current_user || (current_user&.admin?) %>
+  <%= button_to '削除', flower_spot_path(@flower_spot), method: :delete, data: { turbo_confirm: "本当に削除しますか？" } %>
+<% end %>
