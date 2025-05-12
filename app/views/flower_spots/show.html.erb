@@ -83,8 +83,8 @@
   </p>
   <p>
     <strong>投稿日時:</strong>
-    <!-- ヘルパーでローカライズされた日時を表示。format: :long は ja.yml などで定義された書式 -->
-    <%= l @flower_spot.created_at, format: :long if @flower_spot.created_at %>
+    <!-- ヘルパーでローカライズされた日時を表示。 -->
+    <%= l(@flower_spot.created_at, format: :jp_datetime) %>
   </p>
 </div>
 
