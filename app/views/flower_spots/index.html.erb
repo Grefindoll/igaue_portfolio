@@ -1,0 +1,32 @@
+<h1>お花畑の一覧です</h1>
+
+<% if user_signed_in? %>
+  <p><%= link_to "新しいお花畑を作成する", new_flower_spot_path %></p>
+<% end %>
+
+<% if @flower_spots.present? %>
+  <table>
+    <thead>
+      <tr>
+        <th>名前</th>
+        <th>住所</th>
+        <th>見所の時期</th>
+        <th>投稿者</th>
+        <th>詳細を見る</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @flower_spots.each do |f| %>
+        <tr>
+          <td><%= f.name %></td>
+          <td><%= f.address %></td>
+          <td><%= f.peak_season_months.join(', ')%>月</td>
+          <td><%= f.user.email %></td>
+          <td><%= link_to "詳細", flower_spot_path(f) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>まだ登録されているお花畑はありません。</p>
+<% end %>
