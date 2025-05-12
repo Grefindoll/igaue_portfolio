@@ -1,21 +1,98 @@
 <h1><%= @flower_spot.name %> の詳細</h1>
 
-<p>
-  <strong>名前:</strong>
-  <%= @flower_spot.name %>
-</p>
-
-<p>
-  <strong>住所:</strong>
-  <%= @flower_spot.address %>
-</p>
-
-<p>
+<div>
+  <h2>写真</h2>
   <% if @flower_spot.photos.attached? %>
-    <%= image_tag @flower_spot.photos.first %>
+    <% @flower_spot.photos.each do |photo| %>
+      <%= image_tag photo.variant(resize_to_limit: [300, nil]) %>
+      <br>
+    <% end %>
+  <% else %>
+    <p>まだ写真が投稿されていません。</p>
   <% end %>
-</p>
+</div>
 
-<% if @flower_spot.user == current_user || (current_user&.admin?) %>
-  <%= link_to 'このお花畑を編集する', edit_flower_spot_path(@flower_spot) %>
-<% end %>
+<hr>
+
+<div>
+  <h2>基本情報</h2>
+  <p>
+    <strong>名前:</strong>
+    <%= @flower_spot.name %>
+  </p>
+  <p>
+    <strong>住所:</strong>
+    <%= @flower_spot.address %>
+  </p>
+  <p>ここに地図を表示したい</p>
+</div>
+
+<hr>
+
+<div>
+  <h2>お花の情報</h2>
+  <p>
+    <strong>見頃の時期:</strong>
+    <% if @flower_spot.peak_season_months.present? && @flower_spot.peak_season_months.any? %>
+      <%= @flower_spot.peak_season_months.map(&:to_i).sort.map { |m| "#{m}月" }.join('、') %>
+    <% else %>
+      情報なし
+    <% end %>
+  </p>
+  <% if @flower_spot.flower_type_details.present? %>
+    <p>
+      <strong>お花の種類:</strong><br>
+      <%= simple_format(@flower_spot.flower_type_details) %>
+    </p>
+  <% end %>
+</div>
+
+<hr>
+
+<div>
+  <h2>利用案内</h2>
+  <p>
+    <strong>駐車場の有無:</strong>
+    <%= @flower_spot.parking %>
+  </p>
+  <p>
+    <strong>料金体系:</strong>
+    <%= @flower_spot.fee_type %>
+  </p>
+  <% if @flower_spot.fee_detail.present? %>
+    <p>
+      <strong>料金詳細:</strong><br>
+      <%= simple_format(@flower_spot.fee_detail) %>
+    </p>
+  <% end %>
+  <% if @flower_spot.official_url.present? %>
+    <p>
+      <strong>公式サイトURL:</strong>
+      <%= link_to @flower_spot.official_url, @flower_spot.official_url, target: "_blank", rel: "noopener noreferrer" %>
+    </p>
+  <% end %>
+</div>
+
+<hr>
+
+<div>
+  <h2>投稿者情報</h2>
+  <p>
+    <strong>投稿者:</strong>
+    <%= @flower_spot.user.username.presence || @flower_spot.user.email %>
+  </p>
+  <p>
+    <strong>投稿日時:</strong>
+    <!-- ヘルパーでローカライズされた日時を表示。format: :long は ja.yml などで定義された書式 -->
+    <%= l @flower_spot.created_at, format: :long if @flower_spot.created_at %>
+  </p>
+</div>
+
+<hr>
+
+<div>
+  <% if @flower_spot.user == current_user || (current_user&.admin?) %>
+    <%= link_to 'このお花畑を編集する', edit_flower_spot_path(@flower_spot) %>
+  <% end %>
+  <%= link_to 'お花畑一覧に戻る', flower_spots_path %>
+</div>
