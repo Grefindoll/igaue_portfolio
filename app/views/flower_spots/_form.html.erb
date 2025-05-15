@@ -38,12 +38,12 @@
 
   <div>
     <%= form.label :parking, "駐車場の有無" %><br>
-    <%= form.select :parking, FlowerSpot.parkings.keys, include_blank: "選択してください" %>
+    <%= form.select :parking, FlowerSpot.parkings.keys.map { |key| [t("activerecord.attributes.flower_spot.parking.#{key}"), key] }, include_blank: "選択してください" %>
   </div>
 
   <div>
     <%= form.label :fee_type, "料金体系" %><br>
-    <%= form.select :fee_type, FlowerSpot.fee_types.keys, include_blank: "選択してください" %>
+    <%= form.select :fee_type, FlowerSpot.fee_types.keys.map { |key| [t("activerecord.attributes.flower_spot.fee_type.#{key}"), key] }, include_blank: "選択してください" %>
   </div>
 
   <div>

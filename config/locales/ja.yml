@@ -7,3 +7,15 @@ ja:
       only_time: "%H:%M:%S"
       jp_datetime: "%Y年%m月%d日 %H時%M分%S秒"
       with_weekday: "%Y年%m月%d日(%a)"
+  activerecord:
+    attributes:
+      flower_spot:
+        parking:
+          unknown: "不明"
+          available: "駐車場あり"
+          not_available: "駐車場なし"
+        fee_type:
+          unknown: "不明"
+          free: "無料"
+          paid: "有料"
+          partially_paid: "一部有料"
