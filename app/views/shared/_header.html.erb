@@ -1,12 +1,12 @@
 <%= link_to "ホームに戻る", root_path %>
-<%= button_to "ゲストとしてログイン", guest_sign_in_path, method: :post %>
 
 <% if user_signed_in? %>
+  <%= link_to "お花畑を作成する", new_flower_spot_path %>
   <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %>
 <% else %>
+  <%= button_to "ゲストとしてログイン", guest_sign_in_path, method: :post %>
   <%= link_to "ログイン", new_user_session_path %>
   <%= link_to "新規登録", new_user_registration_path %>
 <% end %>
 
-<%= link_to "お花畑を作成する", new_flower_spot_path %>
 <%= link_to "お花畑の一覧を見る", flower_spots_path %>
