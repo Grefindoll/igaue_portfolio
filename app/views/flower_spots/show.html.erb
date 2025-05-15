@@ -53,11 +53,11 @@
   <h2>利用案内</h2>
   <p>
     <strong>駐車場の有無:</strong>
-    <%= @flower_spot.parking %>
+    <%= t("activerecord.attributes.flower_spot.parking.#{@flower_spot.parking}") %>
   </p>
   <p>
     <strong>料金体系:</strong>
-    <%= @flower_spot.fee_type %>
+    <%= t("activerecord.attributes.flower_spot.fee_type.#{@flower_spot.fee_type}") %>
   </p>
   <% if @flower_spot.fee_detail.present? %>
     <p>
