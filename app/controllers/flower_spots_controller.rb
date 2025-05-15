@@ -16,7 +16,7 @@ class FlowerSpotsController < ApplicationController
   end
 
   def create
-  @flower_spot = current_user.flower_spots.build(flower_spot_params)
+    @flower_spot = current_user.flower_spots.build(flower_spot_params)
 
     if @flower_spot.save
       redirect_to flower_spot_path(@flower_spot), notice: 'お花畑情報が正常に登録されました。'
@@ -65,7 +65,7 @@ class FlowerSpotsController < ApplicationController
       :fee_detail,
       :flower_type_details,
       :official_url,
-      photos: [] # Active Storageで複数ファイルを受け取る場合
+      flower_photos: [] # Active Storageで複数ファイルを受け取る場合
     )
   end
 

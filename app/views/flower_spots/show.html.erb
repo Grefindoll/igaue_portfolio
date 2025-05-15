@@ -2,8 +2,8 @@
 
 <div>
   <h2>写真</h2>
-  <% if @flower_spot.photos.attached? %>
-    <% @flower_spot.photos.each do |photo| %>
+  <% if @flower_spot.flower_photos.attached? %>
+    <% @flower_spot.flower_photos.each do |photo| %>
       <%= image_tag photo.variant(resize_to_limit: [300, nil]) %>
       <br>
     <% end %>
