@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   has_many :flower_spots, dependent: :destroy
 
+  validates :username, presence: true, length: { maximum: 50 }
+
   def admin?
     admin # adminカラムがtrueならtrue、falseならfalseを返す
   end
