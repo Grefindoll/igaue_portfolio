@@ -1,1 +1,59 @@
-<h1>ホーム</h1>
+<h1>はなマップへようこそ！</h1>
+<p>全国の素敵なお花畑を地図で探してみましょう。</p>
+
+<div id="map"
+     style="width: 100%; height: 600px; border: 1px solid #ccc; margin-bottom: 20px;"
+     data-flower-spots="<%= @flower_spots_for_map_json %>">
+  <p>地図を読み込んでいます...</p>
+</div>
+
+<hr>
+
+<h2>お花畑を絞り込む</h2>
+<div id="filter-form">
+  <div>
+    <strong>見頃の月で絞り込む:</strong><br>
+    <% (1..12).each do |month| %>
+      <label>
+        <input type="checkbox" name="filter_peak_season_months" value="<%= month %>"> <%= month %>月
+      </label>
+    <% end %>
+  </div>
+
+  <%
+    parking_options = [
+      { label: "指定なし", value: "" },
+      { label: "駐車場あり", value: "available" },
+      { label: "駐車場なし", value: "not_available" },
+      { label: "不明", value: "unknown" }
+    ]
+  %>
+  <div>
+    <label for="filter_parking"><strong>駐車場の有無:</strong></label>
+    <select id="filter_parking" name="filter_parking">
+      <% parking_options.each do |option| %>
+        <option value="<%= option[:value] %>"><%= option[:label] %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <%
+    fee_type_options = [
+      { label: "指定なし", value: "" },
+      { label: "無料", value: "free" },
+      { label: "有料", value: "paid" },
+      { label: "一部有料", value: "partially_paid" },
+      { label: "不明", value: "unknown" }
+    ]
+  %>
+  <div>
+    <label for="filter_fee_type"><strong>料金体系:</strong></label>
+    <select id="filter_fee_type" name="filter_fee_type">
+      <% fee_type_options.each do |option| %>
+        <option value="<%= option[:value] %>"><%= option[:label] %></option>
+      <% end %>
+    </select>
+  </div>
+</div>
+
+<hr>
