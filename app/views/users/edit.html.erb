@@ -1,0 +1,33 @@
+<h2>プロフィールの編集</h2>
+
+<%= form_with model: @user, html: { multipart: true } do |f| %>
+  <% if @user.errors.any? %>
+    <div>
+      <h2><%= @user.errors.count %>件のエラーにより、このプロフィールは保存できませんでした：</h2>
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :profile_image, "プロフィール画像" %>
+    <%= f.file_field :profile_image %>
+  </div>
+
+  <div>
+    <%= f.label :username, "名前" %>
+    <%= f.text_field :username %>
+  </div>
+
+  <div>
+    <%= f.label :introduction, "自己紹介" %>
+    <%= f.text_area :introduction, rows: 10 %>
+  </div>
+
+  <div>
+    <%= f.submit "登録する" %>
+  </div>
+<% end %>

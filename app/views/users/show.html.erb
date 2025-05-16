@@ -1,0 +1,31 @@
+<div>
+  <h2><%= "#{current_user.username}さんの詳細画面" %></h2>
+
+  <div>
+    <div>
+      <% if @user.profile_image.attached? %>
+        <%= image_tag @user.profile_image, size: "100x100" %>
+      <% else %>
+        <%= image_tag 'default-profile_image.png', size: "100x100" %>
+      <% end %>
+    </div>
+
+    <div>
+      <div>
+        <p>名前</p>
+        <p><%= @user.username %></p>
+      </div>
+
+      <div>
+        <p><strong>自己紹介:</strong></p>
+        <% if @user.introduction.blank? %>
+          <p>自己紹介がありません。</p>
+        <% else %>
+          <p><%= @user.introduction %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <%= link_to "プロフィールを編集する", edit_user_path(@user) %>
+</div>
