@@ -65,12 +65,11 @@ class FlowerSpotsController < ApplicationController
       :fee_detail,
       :flower_type_details,
       :official_url,
-      flower_photos: [] # Active Storageで複数ファイルを受け取る場合
+      flower_photos: []
     )
   end
 
   def ensure_correct_user_or_admin
-    # current_user.admin? は User モデルに admin 属性 (boolean) と admin? メソッドを別途定義する必要あり
     unless @flower_spot.user == current_user || (current_user.respond_to?(:admin?) && current_user.admin?)
       redirect_to root_path, alert: '権限がありません。'
     end
