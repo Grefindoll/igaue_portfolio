@@ -1,0 +1,37 @@
+inherit_from:
+  - .rubocop_airbnb.yml
+
+plugins:
+  - rubocop-rails
+  - rubocop-performance
+  - rubocop-rspec
+  - rubocop-capybara
+
+# 全ての Cop (ルール) に対する共通設定
+AllCops:
+  # 対象とする Ruby のバージョンを指定します
+  TargetRubyVersion: 3.2
+
+  # 新しく追加された Cop (ルール) をデフォルトで有効にします
+  NewCops: enable
+
+  # RuboCop のチェック対象から除外するファイルやディレクトリを指定します
+  Exclude:
+    - 'db/schema.rb'
+    - 'db/migrate/*'
+    - 'bin/*'
+    - 'config/**/*'
+    - 'node_modules/**/*'
+    - 'tmp/**/*'
+    - 'vendor/**/*'
+    - 'Gemfile'
+
+Rails:
+  Enabled: true
+
+RSpec:
+  Enabled: true
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
