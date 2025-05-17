@@ -91,6 +91,19 @@
 <hr>
 
 <div>
+  <h2>お気に入り</h2>
+  <% if user_signed_in? %>
+    <% if current_user.favorited?(@flower_spot) %>
+      <%= button_to "お気に入り解除", flower_spot_favorite_path(@flower_spot, current_user.favorites.find_by(flower_spot_id: @flower_spot.id)), method: :delete %>
+    <% else %>
+      <%= button_to "お気に入り登録", flower_spot_favorites_path(@flower_spot), method: :post %>
+    <% end %>
+  <% else %>
+    <p>お気に入り機能を利用するには、<%= link_to "ログイン", new_user_session_path %>が必要です。</p>
+  <% end %>
+</div>
+
+<div>
   <% if @flower_spot.user == current_user || (current_user&.admin?) %>
     <%= link_to 'このお花畑を編集する', edit_flower_spot_path(@flower_spot) %>
   <% end %>

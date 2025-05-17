@@ -1,6 +1,8 @@
 class FlowerSpot < ApplicationRecord
   belongs_to :user
   has_many_attached :flower_photos
+  has_many :favorites, dependent: :destroy
+  has_many :favorited_by_users, through: :favorites, source: :user
 
   enum parking: { unknown: 0, available: 1, not_available: 2 }, _prefix: true
   enum fee_type: { unknown: 0, free: 1, paid: 2, partially_paid: 3 }, _prefix: true
@@ -29,9 +31,8 @@ class FlowerSpot < ApplicationRecord
                             nearby_spots_query.where.not(id: self.id)
                           end
 
-      # もし重複するお花畑が見つかった場合、エラーを追加します。
       if conflicting_spots.exists?
-        # errors.add の第一引数はエラーを追加する属性名、第二引数はエラーメッセージ(またはi18nキー)、第３引数以降は、エラーメッセージ内で使える変数です。
+        # errors.add の第一引数はエラーを追加する属性名、第二引数はエラーメッセージ、第三引数以降は、エラーメッセージ内で使える変数です。
         errors.add(:address, :duplicate_spot_nearby, distance: (search_radius_km * 1000).to_i)
       end
     elsif address.present? && (new_record? || address_changed?)

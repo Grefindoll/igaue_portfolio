@@ -1,0 +1,42 @@
+<div>
+  <h1><%= "#{@user.username}さんのお気に入り一覧" %></h1>
+
+  <% if @favorite_flower_spots.present? %>
+    <table>
+      <thead>
+        <tr>
+          <th>写真</th>
+          <th>お花畑の名前</th>
+          <th>住所</th>
+          <th>見頃</th>
+          <th>詳細</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @favorite_flower_spots.each do |spot| %>
+          <tr>
+            <td>
+              <%= image_tag spot.flower_photos.first.variant(resize_to_limit: [100, nil]) %>
+            </td>
+            <td><%= spot.name %></td>
+            <td><%= spot.address %></td>
+            <td>
+              <% if spot.peak_season_months.present? %>
+                <%= spot.peak_season_months.map(&:to_i).sort.map { |m| "#{m}月" }.join('、') %>
+              <% else %>
+                情報なし
+              <% end %>
+            </td>
+            <td><%= link_to "詳細を見る", flower_spot_path(spot) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>お気に入り登録されているお花畑はまだありません。</p>
+  <% end %>
+
+  <hr>
+  <%= link_to "#{@user.username}さんのプロフィールに戻る", user_path(@user) %> |
+  <%= link_to "マイページに戻る", root_path %>
+</div>
