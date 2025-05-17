@@ -70,7 +70,7 @@ class FlowerSpotsController < ApplicationController
   end
 
   def ensure_correct_user_or_admin
-    unless @flower_spot.user == current_user || (current_user.respond_to?(:admin?) && current_user.admin?)
+    unless @flower_spot.user == current_user || current_user&.admin?
       redirect_to root_path, alert: '権限がありません。'
     end
   end
