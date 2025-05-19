@@ -74,3 +74,7 @@ group :test do
   gem 'faker'
   gem 'database_cleaner-active_record'
 end
+
+gem "tailwindcss-ruby", "~> 4.1"
+
+gem "tailwindcss-rails", "~> 4.2"
