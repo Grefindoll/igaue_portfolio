@@ -9,16 +9,11 @@ FactoryBot.define do
     association :user
 
     after(:build) do |flower_spot|
-      file_path = Rails.root.join('spec', 'fixtures', 'files', 'sample.jpg')
-      if File.exist?(file_path)
-        flower_spot.flower_photos.attach(
-          io: File.open(file_path),
-          filename: 'sample.jpg',
-          content_type: 'image/jpeg'
-        )
-      else
-        puts "spec/fixtures/files/sample.jpg が見つかりません。"
-      end
+      flower_spot.flower_photos.attach(
+        io: File.open(spec/fixtures/files/sample.jpg),
+        filename: 'sample.jpg',
+        content_type: 'image/jpeg'
+      )
     end
   end
 end
