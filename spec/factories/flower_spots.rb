@@ -10,7 +10,7 @@ FactoryBot.define do
 
     after(:build) do |flower_spot|
       flower_spot.flower_photos.attach(
-        io: File.open(spec/fixtures/files/sample.jpg),
+        io: File.open("spec/fixtures/files/sample.jpg"),
         filename: 'sample.jpg',
         content_type: 'image/jpeg'
       )
