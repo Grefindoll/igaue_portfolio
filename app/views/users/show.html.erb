@@ -4,9 +4,9 @@
   <div>
     <div>
       <% if @user.profile_image.attached? %>
-        <%= image_tag @user.profile_image, size: "100x100" %>
+        <%= image_tag @user.profile_image, size: "100x100", alt:"#{@user.username}さんのプロフィール画像" %>
       <% else %>
-        <%= image_tag 'default-profile_image.png', size: "100x100" %>
+        <%= image_tag 'default-profile_image.png', size: "100x100", alt:"デフォルトプロフィール画像" %>
       <% end %>
     </div>
 
