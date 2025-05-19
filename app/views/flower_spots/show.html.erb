@@ -1,111 +1,109 @@
-<h1><%= @flower_spot.name %> の詳細</h1>
+<div class="max-w-lg mx-auto my-8 p-4 sm:p-6 bg-white rounded-lg shadow">
 
-<div>
-  <h2>写真</h2>
-  <% if @flower_spot.flower_photos.attached? %>
-    <% @flower_spot.flower_photos.each do |photo| %>
-      <%= image_tag photo.variant(resize_to_limit: [300, nil]) %>
-      <br>
+  <h1 class="text-2xl font-bold text-pink-600 mb-6 text-center sm:text-left"><%= @flower_spot.name %> の詳細</h1>
+
+  <div class="mb-6">
+    <h2 class="text-lg font-semibold text-gray-700 mb-2 pb-1 border-b border-gray-200">写真</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+      <% @flower_spot.flower_photos.each do |photo| %>
+        <div>
+          <%= image_tag photo, class: "w-40 h-40 rounded-md shadow-sm" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <hr class="my-4 border-gray-200">
+
+  <div class="mb-6">
+    <h2 class="text-lg font-semibold text-gray-700 mb-2 pb-1 border-b border-gray-200">基本情報</h2>
+    <p class="mb-1 text-sm">
+      <strong class="font-medium text-gray-600">名前:</strong>
+      <span class="text-gray-800"><%= @flower_spot.name %></span>
+    </p>
+    <p class="mb-1 text-sm">
+      <strong class="font-medium text-gray-600">住所:</strong>
+      <span class="text-gray-800"><%= @flower_spot.address %></span>
+    </p>
+  </div>
+
+  <hr class="my-4 border-gray-200">
+
+  <div class="mb-6">
+    <h2 class="text-lg font-semibold text-gray-700 mb-2 pb-1 border-b border-gray-200">お花の情報</h2>
+    <p class="mb-1 text-sm">
+      <strong class="font-medium text-gray-600">見頃の時期:</strong>
+      <span class="text-gray-800">
+        <%= @flower_spot.peak_season_months.compact_blank.map(&:to_i).sort.map { |m| "#{m}月" }.join('、') %>
+      </span>
+    </p>
+    <% if @flower_spot.flower_type_details.present? %>
+      <div class="mb-1 text-sm">
+        <strong class="font-medium text-gray-600">お花の種類:</strong>
+        <div class="mt-1 text-gray-800 whitespace-pre-wrap break-words"><%= simple_format(@flower_spot.flower_type_details) %></div>
+      </div>
     <% end %>
-  <% else %>
-    <p>まだ写真が投稿されていません。</p>
-  <% end %>
-</div>
+  </div>
 
-<hr>
+  <hr class="my-4 border-gray-200">
 
-<div>
-  <h2>基本情報</h2>
-  <p>
-    <strong>名前:</strong>
-    <%= @flower_spot.name %>
-  </p>
-  <p>
-    <strong>住所:</strong>
-    <%= @flower_spot.address %>
-  </p>
-  <p>ここに地図を表示したい</p>
-</div>
+  <div class="mb-6">
+    <h2 class="text-lg font-semibold text-gray-700 mb-2 pb-1 border-b border-gray-200">利用案内</h2>
+    <p class="mb-1 text-sm">
+      <strong class="font-medium text-gray-600">駐車場の有無:</strong>
+      <span class="text-gray-800"><%= t("activerecord.attributes.flower_spot.parkings.#{@flower_spot.parking}", default: @flower_spot.parking.to_s.humanize) %></span>
+    </p>
+    <p class="mb-1 text-sm">
+      <strong class="font-medium text-gray-600">料金体系:</strong>
+      <span class="text-gray-800"><%= t("activerecord.attributes.flower_spot.fee_types.#{@flower_spot.fee_type}", default: @flower_spot.fee_type.to_s.humanize) %></span>
+    </p>
+    <% if @flower_spot.fee_detail.present? %>
+      <div class="mb-1 text-sm">
+        <strong class="font-medium text-gray-600">料金詳細:</strong>
+        <div class="mt-1 text-gray-800 whitespace-pre-wrap break-words"><%= simple_format(@flower_spot.fee_detail) %></div>
+      </div>
+    <% end %>
+    <% if @flower_spot.official_url.present? %>
+      <p class="mb-1 text-sm">
+        <strong class="font-medium text-gray-600">公式サイトURL:</strong>
+        <%= link_to @flower_spot.official_url, @flower_spot.official_url, target: "_blank", class: "text-pink-600 hover:underline" %>
+      </p>
+    <% end %>
+  </div>
 
-<hr>
+  <hr class="my-4 border-gray-200">
 
-<div>
-  <h2>お花の情報</h2>
-  <p>
-    <strong>見頃の時期:</strong>
-    <% if @flower_spot.peak_season_months.present? && @flower_spot.peak_season_months.any? %>
-      <%= @flower_spot.peak_season_months.map(&:to_i).sort.map { |m| "#{m}月" }.join('、') %>
+  <div class="mb-6">
+    <h2 class="text-lg font-semibold text-gray-700 mb-2 pb-1 border-b border-gray-200">投稿者情報</h2>
+    <p class="mb-1 text-sm">
+      <strong class="font-medium text-gray-600">投稿者:</strong>
+      <span class="text-gray-800"><%= @flower_spot.user.username %></span>
+    </p>
+    <p class="mb-1 text-sm">
+      <strong class="font-medium text-gray-600">投稿日時:</strong>
+      <span class="text-gray-800"><%= l(@flower_spot.created_at, format: :standard) %></span>
+    </p>
+  </div>
+
+  <hr class="my-4 border-gray-200">
+
+  <div class="mb-6">
+    <h2 class="text-lg font-semibold text-gray-700 mb-2 pb-1 border-b border-gray-200">お気に入り</h2>
+    <% if user_signed_in? %>
+      <% if current_user.favorited?(@flower_spot) %>
+        <%= button_to "お気に入り解除", flower_spot_favorite_path(@flower_spot, current_user.favorites.find_by(flower_spot_id: @flower_spot.id)), method: :delete, class: "inline-block bg-gray-400 text-white text-xs font-semibold py-1 px-2 rounded hover:bg-gray-500" %>
+      <% else %>
+        <%= button_to "お気に入り登録", flower_spot_favorites_path(@flower_spot), method: :post, class: "inline-block bg-pink-500 text-white text-xs font-semibold py-1 px-2 rounded hover:bg-pink-600" %>
+      <% end %>
     <% else %>
-      情報なし
+      <p class="text-sm text-gray-600">お気に入り機能を利用するには、<%= link_to "ログイン", new_user_session_path, class: "text-pink-600 hover:underline" %>が必要です。</p>
     <% end %>
-  </p>
-  <% if @flower_spot.flower_type_details.present? %>
-    <p>
-      <strong>お花の種類:</strong><br>
-      <%= simple_format(@flower_spot.flower_type_details) %>
-    </p>
-  <% end %>
-</div>
+  </div>
 
-<hr>
-
-<div>
-  <h2>利用案内</h2>
-  <p>
-    <strong>駐車場の有無:</strong>
-    <%= t("activerecord.attributes.flower_spot.parking.#{@flower_spot.parking}") %>
-  </p>
-  <p>
-    <strong>料金体系:</strong>
-    <%= t("activerecord.attributes.flower_spot.fee_type.#{@flower_spot.fee_type}") %>
-  </p>
-  <% if @flower_spot.fee_detail.present? %>
-    <p>
-      <strong>料金詳細:</strong><br>
-      <%= simple_format(@flower_spot.fee_detail) %>
-    </p>
-  <% end %>
-  <% if @flower_spot.official_url.present? %>
-    <p>
-      <strong>公式サイトURL:</strong>
-      <%= link_to @flower_spot.official_url, @flower_spot.official_url, target: "_blank", rel: "noopener noreferrer" %>
-    </p>
-  <% end %>
-</div>
-
-<hr>
-
-<div>
-  <h2>投稿者情報</h2>
-  <p>
-    <strong>投稿者:</strong>
-    <%= @flower_spot.user.username.presence || @flower_spot.user.email %>
-  </p>
-  <p>
-    <strong>投稿日時:</strong>
-    <!-- ヘルパーでローカライズされた日時を表示。 -->
-    <%= l(@flower_spot.created_at, format: :jp_datetime) %>
-  </p>
-</div>
-
-<hr>
-
-<div>
-  <h2>お気に入り</h2>
-  <% if user_signed_in? %>
-    <% if current_user.favorited?(@flower_spot) %>
-      <%= button_to "お気に入り解除", flower_spot_favorite_path(@flower_spot, current_user.favorites.find_by(flower_spot_id: @flower_spot.id)), method: :delete %>
-    <% else %>
-      <%= button_to "お気に入り登録", flower_spot_favorites_path(@flower_spot), method: :post %>
+  <div class="mt-6 pt-4 border-t border-gray-200 flex flex-col sm:flex-row sm:justify-end items-center space-y-2 sm:space-y-0 sm:space-x-2">
+    <% if @flower_spot.user == current_user || (current_user&.admin?) %>
+      <%= link_to 'このお花畑を編集する', edit_flower_spot_path(@flower_spot), class: "inline-block bg-green-500 text-white text-xs font-semibold py-1 px-2 rounded hover:bg-green-600 w-full sm:w-auto text-center" %>
     <% end %>
-  <% else %>
-    <p>お気に入り機能を利用するには、<%= link_to "ログイン", new_user_session_path %>が必要です。</p>
-  <% end %>
-</div>
-
-<div>
-  <% if @flower_spot.user == current_user || (current_user&.admin?) %>
-    <%= link_to 'このお花畑を編集する', edit_flower_spot_path(@flower_spot) %>
-  <% end %>
-  <%= link_to 'お花畑一覧に戻る', flower_spots_path %>
+    <%= link_to 'お花畑一覧に戻る', flower_spots_path, class: "text-sm text-gray-600 hover:text-gray-800 hover:underline w-full sm:w-auto text-center" %>
+  </div>
 </div>

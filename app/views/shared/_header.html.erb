@@ -1,13 +1,33 @@
-<%= link_to "ホームに戻る", root_path %>
+<div class="bg-white shadow-sm sticky top-0 z-50">
+  <div class="container mx-auto px-4 sm:px-6 py-3">
+    <div class="flex justify-between items-center">
+      <div>
+        <%= link_to root_path do %>
+          <%= image_tag 'logo.png', alt: '花マップ ロゴ', class: 'h-8 w-auto sm:h-9' %>
+        <% end %>
+      </div>
 
-<% if user_signed_in? %>
-  <%= link_to "お花畑を作成する", new_flower_spot_path %>
-  <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %>
-  <%= link_to "マイページ", user_path(current_user) %>
-<% else %>
-  <%= button_to "ゲストとしてログイン", guest_sign_in_path, method: :post %>
-  <%= link_to "ログイン", new_user_session_path %>
-  <%= link_to "新規登録", new_user_registration_path %>
-<% end %>
+      <div class="flex items-center space-x-2 sm:space-x-3 ml-42">
+        <% if user_signed_in? %>
+          <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "text-xs sm:text-sm text-gray-600 hover:text-pink-600 px-2 py-1" %>
+        <% else %>
+          <%= button_to "ゲストログイン", guest_sign_in_path, method: :post, class: "bg-green-500 text-white text-xs font-medium py-1 px-2 rounded hover:bg-green-600" %>
+          <%= link_to "ログイン", new_user_session_path, class: "text-xs sm:text-sm text-gray-600 hover:text-pink-600 px-2 py-1" %>
+          <%= link_to "新規登録", new_user_registration_path, class: "text-xs sm:text-sm text-pink-600 hover:text-pink-700 font-medium border border-pink-500 py-1 px-2 rounded hover:bg-pink-50" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
 
-<%= link_to "お花畑の一覧を見る", flower_spots_path %>
+<nav class="bg-pink-50 border-b border-pink-200">
+  <div class="container mx-auto px-4 sm:px-6 py-2">
+    <div class="flex justify-center sm:justify-start space-x-3 sm:space-x-4 overflow-x-auto">
+      <% if user_signed_in? %>
+        <%= link_to "マイページ", user_path(current_user), class: "text-sm font-medium text-pink-700 hover:text-pink-900 py-1 px-2 rounded hover:bg-pink-100 whitespace-nowrap" %>
+        <%= link_to "お花畑を作成する", new_flower_spot_path, class: "text-sm font-medium text-pink-700 hover:text-pink-900 py-1 px-2 rounded hover:bg-pink-100 whitespace-nowrap" %>
+      <% end %>
+      <%= link_to "お花畑の一覧を見る", flower_spots_path, class: "text-sm font-medium text-pink-700 hover:text-pink-900 py-1 px-2 rounded hover:bg-pink-100 whitespace-nowrap" %>
+    </div>
+  </div>
+</nav>

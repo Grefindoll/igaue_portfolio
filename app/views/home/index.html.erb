@@ -1,59 +1,61 @@
-<h1>はなマップへようこそ！</h1>
-<p>全国の素敵なお花畑を地図で探してみましょう。</p>
+<div class="bg-pink-50 text-gray-800 font-sans">
+  <div class="container mx-auto px-4 py-8">
 
-<div id="map"
-     style="width: 100%; height: 600px; border: 1px solid #ccc; margin-bottom: 20px;"
-     data-flower-spots="<%= @flower_spots_for_map_json %>">
-  <p>地図を読み込んでいます...</p>
+    <h1 class="text-3xl font-bold text-white bg-gradient-to-r from-pink-500 via-red-400 to-yellow-400 py-3 px-5 rounded-lg shadow-md mb-6 text-center">
+      はなマップへようこそ！
+    </h1>
+
+    <p class="text-gray-600 text-base mb-8 text-center">
+      全国の素敵なお花畑を地図で探してみましょう。
+    </p>
+
+    <div id="map"
+         class="w-full h-[400px] md:h-[500px] border border-gray-300 bg-white rounded-lg shadow-md mb-8"
+         data-flower-spots="<%= @flower_spots_for_map_json %>">
+      <div class="flex items-center justify-center h-full text-pink-500">
+        <svg class="animate-spin mr-2 h-6 w-6 text-pink-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        地図を読み込んでいます...
+      </div>
+    </div>
+
+    <hr class="my-8 border-gray-300">
+
+    <h2 class="text-2xl font-semibold text-pink-600 mb-6 text-center">
+      お花畑を絞り込む
+    </h2>
+
+    <div id="filter-form" class="space-y-6 bg-white p-6 rounded-lg shadow-md">
+      <div>
+        <strong class="block text-lg font-medium text-gray-700 mb-3">見頃の月で絞り込む:</strong>
+        <div class="grid grid-cols-3 sm:grid-cols-4 gap-3">
+          <% (1..12).each do |month| %>
+            <label class="flex items-center p-2 border border-gray-300 rounded-md hover:bg-pink-50 cursor-pointer">
+              <input type="checkbox" name="filter_peak_season_months" value="<%= month %>" class="h-4 w-4 text-pink-500 border-gray-300 rounded focus:ring-pink-500 mr-2">
+              <span class="text-sm text-gray-700"><%= month %>月</span>
+            </label>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-200 pt-6">
+        <label for="filter_parking" class="block text-lg font-medium text-gray-700 mb-2">駐車場の有無:</label>
+        <select id="filter_parking" name="filter_parking" class="block w-full p-2 border border-gray-300 bg-white rounded-md focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 text-sm text-gray-700">
+          <%= options_for_select(parking_options_for_select, params[:filter_parking]) %>
+        </select>
+      </div>
+
+      <div class="border-t border-gray-200 pt-6">
+        <label for="filter_fee_type" class="block text-lg font-medium text-gray-700 mb-2">料金体系:</label>
+        <select id="filter_fee_type" name="filter_fee_type" class="block w-full p-2 border border-gray-300 bg-white rounded-md focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 text-sm text-gray-700">
+          <%= options_for_select(fee_type_options_for_select, params[:filter_fee_type]) %>
+        </select>
+      </div>
+    </div>
+
+    <hr class="my-10 border-gray-300">
+
+  </div>
 </div>
-
-<hr>
-
-<h2>お花畑を絞り込む</h2>
-<div id="filter-form">
-  <div>
-    <strong>見頃の月で絞り込む:</strong><br>
-    <% (1..12).each do |month| %>
-      <label>
-        <input type="checkbox" name="filter_peak_season_months" value="<%= month %>"> <%= month %>月
-      </label>
-    <% end %>
-  </div>
-
-  <%
-    parking_options = [
-      { label: "指定なし", value: "" },
-      { label: "駐車場あり", value: "available" },
-      { label: "駐車場なし", value: "not_available" },
-      { label: "不明", value: "unknown" }
-    ]
-  %>
-  <div>
-    <label for="filter_parking"><strong>駐車場の有無:</strong></label>
-    <select id="filter_parking" name="filter_parking">
-      <% parking_options.each do |option| %>
-        <option value="<%= option[:value] %>"><%= option[:label] %></option>
-      <% end %>
-    </select>
-  </div>
-
-  <%
-    fee_type_options = [
-      { label: "指定なし", value: "" },
-      { label: "無料", value: "free" },
-      { label: "有料", value: "paid" },
-      { label: "一部有料", value: "partially_paid" },
-      { label: "不明", value: "unknown" }
-    ]
-  %>
-  <div>
-    <label for="filter_fee_type"><strong>料金体系:</strong></label>
-    <select id="filter_fee_type" name="filter_fee_type">
-      <% fee_type_options.each do |option| %>
-        <option value="<%= option[:value] %>"><%= option[:label] %></option>
-      <% end %>
-    </select>
-  </div>
-</div>
-
-<hr>

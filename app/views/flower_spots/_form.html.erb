@@ -1,67 +1,83 @@
-<%= form_with model: flower_spot, local: true, multipart: true do |form| %>
-  <% if flower_spot.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= flower_spot.errors.count %>件のエラーがあります。</h2>
-      <ul>
-        <% flower_spot.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+<div class="max-w-lg mx-auto my-10 p-6 bg-white rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold text-pink-600 mb-6 text-center">
+    <%= flower_spot.persisted? ? "お花畑を編集" : "新しいお花畑を登録" %>
+  </h2>
+
+  <%= form_with model: flower_spot, local: true, multipart: true, class: "space-y-5" do |form| %>
+    <% if flower_spot.errors.any? %>
+      <div id="error_explanation" class="bg-red-50 border border-red-300 text-red-700 px-4 py-3 rounded-md mb-5">
+        <h3 class="text-lg font-semibold mb-1"><%= flower_spot.errors.count %>件のエラーがあります。</h3>
+        <ul class="list-disc list-inside text-sm">
+          <% flower_spot.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= form.label :name, "お花畑の名前", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= form.text_field :name, class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-pink-500" %>
+    </div>
+
+    <div>
+      <%= form.label :address, "住所", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= form.text_field :address, class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-pink-500" %>
+    </div>
+
+    <div>
+      <%= form.label :flower_photos, "写真 (3枚～5枚程度)", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= form.file_field :flower_photos, multiple: true, class: "block w-full text-sm text-gray-500 border border-gray-300 rounded-md cursor-pointer file:mr-3 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-pink-50 file:text-pink-600 hover:file:bg-pink-100" %>
+    </div>
+
+    <div>
+      <p class="block text-sm font-medium text-gray-700 mb-1">見頃の時期（複数選択可）：</p>
+      <div class="mt-1 space-y-1 sm:flex sm:flex-wrap sm:gap-x-4 sm:gap-y-1">
+        <% (1..12).each do |month| %>
+          <div class="flex items-center">
+            <%= form.check_box :peak_season_months, { multiple: true, name: "flower_spot[peak_season_months][]", include_hidden: false, checked: flower_spot.peak_season_months&.include?(month), class: "h-4 w-4 text-pink-600 border-gray-300 rounded focus:ring-pink-500" }, month, nil %>
+            <%= form.label "peak_season_months_#{month}", "#{month}月", class: "ml-2 text-sm text-gray-700" %>
+          </div>
         <% end %>
-      </ul>
+      </div>
+    </div>
+
+    <div>
+      <%= form.label :parking, "駐車場の有無", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= form.select :parking, FlowerSpot.parkings.keys.map { |key| [t("activerecord.attributes.flower_spot.parkings.#{key}", default: key.to_s.humanize), key] }, { include_blank: "選択してください" }, class: "w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:border-pink-500" %>
+    </div>
+
+    <div>
+      <%= form.label :fee_type, "料金体系", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= form.select :fee_type, FlowerSpot.fee_types.keys.map { |key| [t("activerecord.attributes.flower_spot.fee_types.#{key}", default: key.to_s.humanize), key] }, { include_blank: "選択してください" }, class: "w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:border-pink-500" %>
+    </div>
+
+    <div>
+      <%= form.label :fee_detail, "料金詳細（有料の場合など）", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= form.text_area :fee_detail, rows: 3, class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-pink-500" %>
+    </div>
+
+    <div>
+      <%= form.label :flower_type_details, "お花の種類（自由入力）", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= form.text_area :flower_type_details, rows: 3, class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-pink-500" %>
+    </div>
+
+    <div>
+      <%= form.label :official_url, "公式サイトURL", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= form.url_field :official_url, placeholder: "https://example.com", class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-pink-500" %>
+    </div>
+
+    <div>
+      <%= form.submit (flower_spot.persisted? ? "更新する" : "登録する"), class: "w-full py-2 px-4 bg-pink-500 text-white font-semibold rounded-md hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-50" %>
     </div>
   <% end %>
-
   <div>
-    <%= form.label :name, "お花畑の名前" %><br>
-    <%= form.text_field :name %>
-  </div>
-
-  <div>
-    <%= form.label :address, "住所" %><br>
-    <%= form.text_field :address %>
-  </div>
-
-  <div>
-    <%= form.label :flower_photos, "写真 (3枚～5枚程度)" %><br>
-    <%= form.file_field :flower_photos, multiple: true %>
-  </div>
-
-  <div>
-    <p>見頃の時期（複数選択可）：</p>
-    <% (1..12).each do |month| %>
-      <%= form.check_box :peak_season_months, { multiple: true, name: "flower_spot[peak_season_months][]", include_hidden: false, checked: flower_spot.peak_season_months&.include?(month) }, month, nil %>
-      <%= form.label "peak_season_months_#{month}", "#{month}月" %>
+    <% if flower_spot.persisted? %>
+      <% if flower_spot.user == current_user || (current_user&.admin?) %>
+        <%= button_to '削除', flower_spot_path(flower_spot), method: :delete, data: { turbo_confirm: "本当に削除しますか？" }, class: "w-full py-2 px-2 mt-2 text-gray-500 hover:bg-gray-200 rounded-md" %>
+      <% else %>
+        <%= link_to "一覧に戻る", flower_spots_path %>
+      <% end %>
     <% end %>
-    <%# include_hidden: false は、チェックがない場合に空の配列が送られるようにするための一つの方法です %>
-    <%# checked: flower_spot.peak_season_months&.include?(month) は編集時用です。新規作成時は flower_spot.peak_season_months は空配列なのでチェックされません。 %>
-    <%# name: "flower_spot[peak_season_months][]" で Rails が配列としてパラメータを受け取れるようにします。form.check_box がこれをよしなにやってくれることも多いです。 %>
   </div>
-
-  <div>
-    <%= form.label :parking, "駐車場の有無" %><br>
-    <%= form.select :parking, FlowerSpot.parkings.keys.map { |key| [t("activerecord.attributes.flower_spot.parking.#{key}"), key] }, include_blank: "選択してください" %>
-  </div>
-
-  <div>
-    <%= form.label :fee_type, "料金体系" %><br>
-    <%= form.select :fee_type, FlowerSpot.fee_types.keys.map { |key| [t("activerecord.attributes.flower_spot.fee_type.#{key}"), key] }, include_blank: "選択してください" %>
-  </div>
-
-  <div>
-    <%= form.label :fee_detail, "料金詳細（有料の場合など）" %><br>
-    <%= form.text_area :fee_detail, rows: 3 %>
-  </div>
-
-  <div>
-    <%= form.label :flower_type_details, "お花の種類（自由入力）" %><br>
-    <%= form.text_area :flower_type_details, rows: 3 %>
-  </div>
-
-  <div>
-    <%= form.label :official_url, "公式サイトURL" %><br>
-    <%= form.url_field :official_url, placeholder: "https://example.com" %>
-  </div>
-
-  <div>
-    <%= form.submit (flower_spot.persisted? ? "更新する" : "登録する") %>
-  </div>
-<% end %>
+</div>

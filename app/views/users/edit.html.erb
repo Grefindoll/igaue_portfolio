@@ -1,33 +1,40 @@
-<h2>プロフィールの編集</h2>
+<%# プロフィール編集フォーム全体を囲むコンテナ %>
+<div class="max-w-lg mx-auto my-8 p-6 bg-white rounded-lg shadow">
 
-<%= form_with model: @user, html: { multipart: true } do |f| %>
-  <% if @user.errors.any? %>
+  <h2 class="text-2xl font-bold text-pink-600 mb-6 text-center">プロフィールの編集</h2>
+
+  <%= form_with model: @user, html: { multipart: true, class: "space-y-5" } do |f| %>
+    <%# エラーメッセージ表示エリア %>
+    <% if @user.errors.any? %>
+      <div id="error_explanation" class="p-3 mb-4 bg-red-50 text-red-700 border border-red-200 rounded-md">
+        <h3 class="text-md font-semibold mb-1"><%= @user.errors.count %>件のエラーにより、このプロフィールは保存できませんでした：</h3>
+        <ul class="list-disc list-inside text-sm">
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%# 各入力フィールドのグループ %>
     <div>
-      <h2><%= @user.errors.count %>件のエラーにより、このプロフィールは保存できませんでした：</h2>
-      <ul>
-        <% @user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+      <%= f.label :profile_image, "プロフィール画像", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.file_field :profile_image, class: "block w-full h-8 text-sm text-gray-500 border border-gray-300 rounded-md cursor-pointer file:w-32 file:h-full file:mr-2 file:px-2 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-pink-50 file:text-pink-600 hover:file:bg-pink-100" %>
+    </div>
+
+    <div>
+      <%= f.label :username, "ニックネーム", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.text_field :username, class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-pink-500" %>
+    </div>
+
+    <div>
+      <%= f.label :introduction, "自己紹介", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.text_area :introduction, rows: 10, class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-pink-500" %>
+    </div>
+
+    <div>
+      <%# 送信ボタンのテキストを、新規作成か更新かで動的に変更 %>
+      <%= f.submit (@user.persisted? ? "更新する" : "登録する"), class: "w-full py-2 px-4 bg-pink-500 text-white font-semibold rounded-md hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-50" %>
     </div>
   <% end %>
-
-  <div>
-    <%= f.label :profile_image, "プロフィール画像" %>
-    <%= f.file_field :profile_image %>
-  </div>
-
-  <div>
-    <%= f.label :username, "ニックネーム" %>
-    <%= f.text_field :username %>
-  </div>
-
-  <div>
-    <%= f.label :introduction, "自己紹介" %>
-    <%= f.text_area :introduction, rows: 10 %>
-  </div>
-
-  <div>
-    <%= f.submit "登録する" %>
-  </div>
-<% end %>
+</div>
