@@ -22,7 +22,7 @@ RSpec.describe "UsersProfileEdit", type: :system do
       attach_file "プロフィール画像", Rails.root.join("spec/fixtures/files/sample.jpg")
       fill_in "ニックネーム", with: "新しい名前"
       fill_in "自己紹介", with: "新しい自己紹介文です。"
-      click_button "登録する"
+      click_button "更新する"
     end
 
     it "プロフィールを更新できること" do
@@ -41,7 +41,7 @@ RSpec.describe "UsersProfileEdit", type: :system do
   context "無効な入力の場合" do
     it "エラーメッセージが表示されること" do
       fill_in "ニックネーム", with: ""
-      click_button "登録する"
+      click_button "更新する"
 
       expect(page).to have_content "1件のエラーにより、このプロフィールは保存できませんでした"
       expect(page).to have_content "ニックネーム を入力してください"
