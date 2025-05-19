@@ -31,11 +31,11 @@ ja:
         created_at: "投稿日時"
         updated_at: "更新日時"
 
-        parking:
+        parkings:
           unknown: "不明"
           available: "駐車場あり"
           not_available: "駐車場なし"
-        fee_type:
+        fee_types:
           unknown: "不明"
           free: "無料"
           paid: "有料"
