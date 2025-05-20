@@ -16,6 +16,6 @@ class User < ApplicationRecord
   end
 
   def favorited?(flower_spot)
-    self.favorite_flower_spots.include?(flower_spot)
+    favorite_flower_spots.include?(flower_spot)
   end
 end

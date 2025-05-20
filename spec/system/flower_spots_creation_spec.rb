@@ -24,9 +24,9 @@ RSpec.describe "FlowerSpotsCreation", type: :system do
       end
 
       it "お花畑を登録すると、カウントが一つ増えること" do
-        expect {
+        expect do
           click_button "登録する"
-        }.to change(FlowerSpot, :count).by(1)
+        end.to change(FlowerSpot, :count).by(1)
       end
 
       context "お花畑登録の処理を行った後" do

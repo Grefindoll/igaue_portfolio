@@ -11,7 +11,7 @@ class HomeController < ApplicationController
         show_path: flower_spot_path(spot),
         peak_season_months: spot.peak_season_months,
         parking: spot.parking,
-        fee_type: spot.fee_type
+        fee_type: spot.fee_type,
       }
     end
     @flower_spots_for_map_json = flower_spots_data_for_js.to_json

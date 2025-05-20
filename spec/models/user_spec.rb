@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe 'バリデーション' do
-
     it '有効な属性（ユーザー名、メールアドレス、パスワードがある場合）は有効であること' do
       user = build(:user)
       expect(user).to be_valid

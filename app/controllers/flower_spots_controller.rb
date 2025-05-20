@@ -15,6 +15,11 @@ class FlowerSpotsController < ApplicationController
     @flower_spot = FlowerSpot.new
   end
 
+  def edit
+    # before_action でset_flower_spot済み。
+    # ensure_correct_user_or_admin で権限チェック済み
+  end
+
   def create
     @flower_spot = current_user.flower_spots.build(flower_spot_params)
 
@@ -24,11 +29,6 @@ class FlowerSpotsController < ApplicationController
       flash.now[:alert] = 'お花畑情報の登録に失敗しました。入力内容を確認してください。'
       render :new, status: :unprocessable_entity
     end
-  end
-
-  def edit
-    # before_action でset_flower_spot済み。
-    # ensure_correct_user_or_admin で権限チェック済み
   end
 
   def update
@@ -47,7 +47,6 @@ class FlowerSpotsController < ApplicationController
     @flower_spot.destroy
     redirect_to root_path, notice: 'お花畑情報を削除しました。', status: :see_other
   end
-
 
   private
 
