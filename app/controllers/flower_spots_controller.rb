@@ -4,7 +4,7 @@ class FlowerSpotsController < ApplicationController
   before_action :ensure_correct_user_or_admin, only: [:edit, :update, :destroy]
 
   def index
-    @flower_spots = FlowerSpot.all.order(created_at: :desc)
+    @flower_spots = FlowerSpot.order(created_at: :desc)
   end
 
   def show

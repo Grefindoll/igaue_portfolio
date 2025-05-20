@@ -1,6 +1,6 @@
 # ゲストユーザーのメールアドレスとパスワードを定義
-GUEST_USER_EMAIL = "guest@example.com"
-GUEST_USER_PASSWORD = "password123"
+GUEST_USER_EMAIL = "guest@example.com".freeze
+GUEST_USER_PASSWORD = "password123".freeze
 
 # ゲストユーザーを探すか、なければ作成する。同じゲストユーザーが何回も造られないようにする。
 User.find_or_create_by!(email: GUEST_USER_EMAIL) do |user|
