@@ -13,9 +13,9 @@ class FlowerSpot < ApplicationRecord
   validates :flower_photos, presence: true
 
   # --- ここからGeocoding関連の設定 ---
+  validate :no_duplicate_flower_spots_nearby
   geocoded_by :address
   after_validation :geocode, if: :should_geocode?
-  validate :no_duplicate_flower_spots_nearby
   # --- ここまで ---
 
   private
