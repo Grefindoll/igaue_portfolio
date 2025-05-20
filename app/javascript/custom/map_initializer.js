@@ -126,7 +126,7 @@ async function initializeHanamap() {
   map = new Map(mapDiv, {
     center: initialPosition,
     zoom: initialZoom,
-    mapId: 'HANAMAP_MAIN_MAP_ID' // ご自身のMap IDに置き換えてください
+    mapId: 'd417de3b2160e536ca76c676'
   });
   mapDiv.classList.add('map-initialized');
 
