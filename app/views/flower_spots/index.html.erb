@@ -25,7 +25,7 @@
               <td class="p-3 text-sm text-gray-700 border-b border-gray-200"><%= f.name %></td>
               <td class="p-3 text-sm text-gray-700 border-b border-gray-200"><%= f.address %></td>
               <td class="p-3 text-sm text-gray-700 border-b border-gray-200"><%= f.peak_season_months.join(', ')%>月</td>
-              <td class="p-3 text-sm text-gray-700 border-b border-gray-200"><%= f.user.username.presence || f.user.email %></td>
+              <td class="p-3 text-sm text-gray-700 border-b border-gray-200"><%= f.user.username.presence %></td>
               <td class="p-3 text-sm border-b border-gray-200">
                 <%= link_to "詳細", flower_spot_path(f), class: "text-pink-600 hover:text-pink-700 font-medium" %>
               </td>
