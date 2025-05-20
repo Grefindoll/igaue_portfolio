@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  post 'guest_sign_in', to: 'guest_sessions#create'
+  post 'guest_sign_in', to: 'guest_sessions#create', as: :guest_sign_in
   root "home#index"
   resources :users, only: [:show,:edit,:update] do
     member do
