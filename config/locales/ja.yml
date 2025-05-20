@@ -52,7 +52,6 @@ ja:
               blank: "は必須項目です"
             address:
               blank: "は必須項目です"
-              duplicate_spot_nearby: "から半径%{distance}m以内に、既に別のお花畑が登録されているようです。"
             peak_season_months:
               blank: "を1つ以上選択してください"
 
