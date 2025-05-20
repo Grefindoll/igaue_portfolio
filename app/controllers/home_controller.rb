@@ -1,4 +1,3 @@
-# app/controllers/home_controller.rb
 class HomeController < ApplicationController
   def index
     flower_spots_on_map = FlowerSpot.where.not(latitude: nil, longitude: nil)
