@@ -13,9 +13,9 @@ class FlowerSpot < ApplicationRecord
   validates :flower_photos, presence: true
   validate :no_duplicate_flower_spots_nearby
 
-  # --- ここからGeocoding関連の設定を追加・確認 ---
+  # --- ここからGeocoding関連の設定 ---
   geocoded_by :address
-  after_validation :geocode, if: ->(obj){ obj.address.present? && obj.address_changed? }
+  after_validation :do_geocoding_if_needed
   # --- ここまで ---
 
   private
@@ -28,6 +28,12 @@ class FlowerSpot < ApplicationRecord
 
     if nearby.exists?
       errors.add(:address, '近くにすでに同じようなスポットがあります')
+    end
+  end
+
+  def do_geocoding_if_needed
+    if address.present? && address_changed?
+      geocode
     end
   end
 end
