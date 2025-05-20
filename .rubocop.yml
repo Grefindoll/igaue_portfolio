@@ -7,15 +7,11 @@ plugins:
   - rubocop-rspec
   - rubocop-capybara
 
-# 全ての Cop (ルール) に対する共通設定
 AllCops:
-  # 対象とする Ruby のバージョンを指定します
   TargetRubyVersion: 3.2
 
-  # 新しく追加された Cop (ルール) をデフォルトで有効にします
   NewCops: enable
 
-  # RuboCop のチェック対象から除外するファイルやディレクトリを指定します
   Exclude:
     - 'db/schema.rb'
     - 'db/migrate/*'
@@ -35,3 +31,12 @@ RSpec:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
+
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+Airbnb/SimpleUnless:
+  Enabled: false
+
+Airbnb/SimpleModifierConditional:
+  Enabled: false
