@@ -14,7 +14,7 @@ class FlowerSpot < ApplicationRecord
 
   # --- ここからGeocoding関連の設定 ---
   geocoded_by :address
-  after_validation :do_geocoding_if_needed
+  after_validation :geocode, if: :should_geocode?
   validate :no_duplicate_flower_spots_nearby
   # --- ここまで ---
 
@@ -31,9 +31,7 @@ class FlowerSpot < ApplicationRecord
     end
   end
 
-  def do_geocoding_if_needed
-    if address.present? && address_changed?
-      geocode
-    end
+  def should_geocode?
+    address.present? && address_changed?
   end
 end
