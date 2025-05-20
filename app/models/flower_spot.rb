@@ -11,11 +11,11 @@ class FlowerSpot < ApplicationRecord
   validates :address, presence: true, length: { maximum: 255 }
   validates :peak_season_months, presence: true
   validates :flower_photos, presence: true
-  validate :no_duplicate_flower_spots_nearby
 
   # --- ここからGeocoding関連の設定 ---
   geocoded_by :address
   after_validation :do_geocoding_if_needed
+  validate :no_duplicate_flower_spots_nearby
   # --- ここまで ---
 
   private
