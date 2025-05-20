@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-    flower_spots_on_map = FlowerSpot.where.not(latitude: nil, longitude: nil)
+    flower_spots_on_map = FlowerSpot.where.not(latitude: nil).where.not(longitude: nil)
 
     flower_spots_data_for_js = flower_spots_on_map.map do |spot|
       {
