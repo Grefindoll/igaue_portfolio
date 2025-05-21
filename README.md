@@ -1,6 +1,6 @@
 # フラワーマップ 🌷🗺️
 
-![フラワーマップ ロゴ](https://via.placeholder.com/300x150.png?text=フラワーマップ+ロゴ)
+![フラワーマップ ロゴ](images/logo.png)
 
 ## 1. 概要 📝
 
@@ -70,4 +70,4 @@
 
 ## 9. ER図 📈
 
-（ここにER図の画像を挿入します）
+![フラワーマップ ER図](images/er_diagram.png)
