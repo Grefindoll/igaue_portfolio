@@ -1,0 +1,42 @@
+<div class="max-w-lg mx-auto my-8 p-6 bg-white rounded-lg shadow">
+
+  <h2 class="text-2xl font-bold text-pink-600 mb-6 text-center">
+    <%= "#{current_user.username}さんのマイページ" %>
+  </h2>
+
+  <div class="mb-6">
+    <div class="mb-4 text-center">
+      <% if @user.profile_image.attached? %>
+        <%= image_tag @user.profile_image, size: "120x120", alt:"#{@user.username}さんのプロフィール画像", class: "rounded-full border-2 border-gray-300 inline-block" %>
+      <% else %>
+        <%= image_tag 'default-profile_image.png', size: "100x100", alt:"デフォルトプロフィール画像", class: "rounded-full border-2 border-gray-300 inline-block" %>
+      <% end %>
+    </div>
+
+    <div class="space-y-3">
+      <div>
+        <p class="text-xs text-gray-500">ニックネーム</p>
+        <p class="text-lg text-gray-800 font-semibold"><%= @user.username %></p>
+      </div>
+
+      <div>
+        <p class="text-xs text-gray-500">自己紹介:</p>
+        <% if @user.introduction.blank? %>
+          <p class="text-gray-500 italic mt-1">自己紹介がありません。</p>
+        <% else %>
+          <p class="text-gray-700 mt-1 whitespace-pre-wrap break-words"><%= @user.introduction %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="border-t border-gray-200 pt-4 space-y-3">
+    <p class="text-center">
+      <%= link_to "#{@user.username}さんのお気に入り一覧を見る", favorites_user_path(@user), class: "text-pink-600 hover:text-pink-700 font-medium" %>
+    </p>
+    <div class="text-center">
+      <%= link_to "プロフィールを編集する", edit_user_path(@user), class: "inline-block bg-pink-500 text-white text-sm font-semibold py-2 px-3 rounded-md hover:bg-pink-600" %>
+    </div>
+  </div>
+
+</div>

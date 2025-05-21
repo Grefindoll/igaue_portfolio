@@ -1,0 +1,40 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-2xl font-bold text-pink-600 mb-4 mt-6">お花畑の一覧です</h1>
+
+  <% if user_signed_in? %>
+    <div class="my-4">
+      <%= link_to "新しいお花畑を作成する", new_flower_spot_path, class: "inline-block bg-pink-500 text-white text-sm font-semibold py-2 px-3 rounded-md hover:bg-pink-600" %>
+    </div>
+  <% end %>
+
+  <% if @flower_spots.present? %>
+    <div class="overflow-x-auto bg-white rounded-lg shadow">
+      <table class="w-full border-collapse">
+        <thead>
+          <tr class="bg-gray-100">
+            <th class="p-3 text-left text-xs font-medium text-gray-600 uppercase border-b border-gray-200">名前</th>
+            <th class="p-3 text-left text-xs font-medium text-gray-600 uppercase border-b border-gray-200">住所</th>
+            <th class="p-3 text-left text-xs font-medium text-gray-600 uppercase border-b border-gray-200">見頃の時期</th>
+            <th class="p-3 text-left text-xs font-medium text-gray-600 uppercase border-b border-gray-200">投稿者</th>
+            <th class="p-3 text-left text-xs font-medium text-gray-600 uppercase border-b border-gray-200">詳細を見る</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @flower_spots.each do |f| %>
+            <tr class="hover:bg-gray-50">
+              <td class="p-3 text-sm text-gray-700 border-b border-gray-200"><%= f.name %></td>
+              <td class="p-3 text-sm text-gray-700 border-b border-gray-200"><%= f.address %></td>
+              <td class="p-3 text-sm text-gray-700 border-b border-gray-200"><%= f.peak_season_months.join(', ')%>月</td>
+              <td class="p-3 text-sm text-gray-700 border-b border-gray-200"><%= f.user.username.presence %></td>
+              <td class="p-3 text-sm border-b border-gray-200">
+                <%= link_to "詳細", flower_spot_path(f), class: "text-pink-600 hover:text-pink-700 font-medium" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <p class="mt-6 p-4 bg-blue-50 text-blue-700 border border-blue-200 rounded-md">まだ登録されているお花畑はありません。</p>
+  <% end %>
+</div>

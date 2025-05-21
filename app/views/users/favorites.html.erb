@@ -1,0 +1,61 @@
+<%# お気に入り一覧ページ全体を囲むコンテナ %>
+<div class="max-w-3xl mx-auto my-8 p-4 sm:p-6 bg-white rounded-lg shadow">
+
+  <h1 class="text-xl font-bold text-pink-600 mb-5 text-center sm:text-left">
+    <%= "#{@user.username}さんのお気に入り一覧" %>
+  </h1>
+
+  <% if @favorite_flower_spots.present? %>
+    <%# テーブルが横にはみ出す場合にスクロールできるようにするコンテナ %>
+    <div class="overflow-x-auto border border-gray-200 rounded-md">
+      <table class="w-full border-collapse">
+        <thead>
+          <tr class="bg-gray-50"> <%# ヘッダー行の背景色 %>
+            <th class="p-2 text-left text-xs font-medium text-gray-500 uppercase border-b border-gray-200">写真</th>
+            <th class="p-2 text-left text-xs font-medium text-gray-500 uppercase border-b border-gray-200">お花畑の名前</th>
+            <th class="p-2 text-left text-xs font-medium text-gray-500 uppercase border-b border-gray-200">住所</th>
+            <th class="p-2 text-left text-xs font-medium text-gray-500 uppercase border-b border-gray-200">見頃</th>
+            <th class="p-2 text-left text-xs font-medium text-gray-500 uppercase border-b border-gray-200">詳細</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @favorite_flower_spots.each do |spot| %>
+            <tr class="hover:bg-gray-50">
+              <td class="p-2 border-b border-gray-200 align-middle">
+                <% if spot.flower_photos.attached? && spot.flower_photos.first.present? %>
+                  <%= image_tag spot.flower_photos.first.variant(resize_to_limit: [80, 80]), class: "w-[60px] h-[60px] object-cover rounded" %> <%# 少し小さめに調整 %>
+                <% else %>
+                  <span class="text-xs text-gray-400">画像なし</span>
+                <% end %>
+              </td>
+              <td class="p-2 text-sm text-gray-700 border-b border-gray-200 align-middle"><%= spot.name %></td>
+              <td class="p-2 text-sm text-gray-700 border-b border-gray-200 align-middle"><%= spot.address %></td>
+              <td class="p-2 text-sm text-gray-700 border-b border-gray-200 align-middle">
+                <% if spot.peak_season_months.present? && spot.peak_season_months.compact_blank.any? %>
+                  <%= spot.peak_season_months.compact_blank.map(&:to_i).sort.map { |m| "#{m}月" }.join('、') %>
+                <% else %>
+                  <span class="text-xs text-gray-400">情報なし</span>
+                <% end %>
+              </td>
+              <td class="p-2 text-sm border-b border-gray-200 align-middle">
+                <%= link_to "詳細を見る", flower_spot_path(spot), class: "text-pink-600 hover:underline font-medium" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <p class="mt-4 p-3 bg-blue-50 text-blue-600 border border-blue-200 rounded-md text-sm">
+      お気に入り登録されているお花畑はまだありません。
+    </p>
+  <% end %>
+
+  <hr class="my-5 border-gray-200">
+
+  <div class="text-sm text-center sm:text-left space-y-1 sm:space-y-0">
+    <%= link_to "#{@user.username}さんのマイページに戻る", user_path(@user), class: "text-pink-600 hover:underline block sm:inline-block sm:mr-3" %>
+    <span class="text-gray-400 hidden sm:inline">|</span>
+    <%= link_to "ホームに戻る", root_path, class: "text-pink-600 hover:underline block sm:inline-block sm:ml-3" %>
+  </div>
+</div>

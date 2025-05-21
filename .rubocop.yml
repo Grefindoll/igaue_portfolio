@@ -1,0 +1,42 @@
+inherit_from:
+  - .rubocop_airbnb.yml
+
+plugins:
+  - rubocop-rails
+  - rubocop-performance
+  - rubocop-rspec
+  - rubocop-capybara
+
+AllCops:
+  TargetRubyVersion: 3.2
+
+  NewCops: enable
+
+  Exclude:
+    - 'db/schema.rb'
+    - 'db/migrate/*'
+    - 'bin/*'
+    - 'config/**/*'
+    - 'node_modules/**/*'
+    - 'tmp/**/*'
+    - 'vendor/**/*'
+    - 'Gemfile'
+
+Rails:
+  Enabled: true
+
+RSpec:
+  Enabled: true
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+Airbnb/SimpleUnless:
+  Enabled: false
+
+Airbnb/SimpleModifierConditional:
+  Enabled: false

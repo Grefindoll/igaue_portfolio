@@ -1,0 +1,85 @@
+ja:
+  activerecord:
+    models:
+      user: "ユーザー"
+      flower_spot: "お花畑"
+
+    attributes:
+      user:
+        email: "メールアドレス"
+        password: "パスワード"
+        name: "名前"
+        password_confirmation: "パスワード（確認用）"
+        username: "ニックネーム"
+        introduction: "自己紹介"
+        created_at: "登録日時"
+        updated_at: "更新日時"
+
+      flower_spot:
+        name: "お花畑の名前"
+        address: "住所"
+        latitude: "緯度"
+        longitude: "経度"
+        peak_season_months: "見頃の時期"
+        parking: "駐車場の有無"           # enumの属性名自体の日本語化
+        fee_type: "料金体系"              # enumの属性名自体の日本語化
+        fee_detail: "料金詳細"
+        flower_type_details: "お花の種類"
+        official_url: "公式サイトURL"
+        flower_photos: "写真"
+        user: "投稿者"
+        created_at: "投稿日時"
+        updated_at: "更新日時"
+
+        parkings:
+          unknown: "不明"
+          available: "駐車場あり"
+          not_available: "駐車場なし"
+        fee_types:
+          unknown: "不明"
+          free: "無料"
+          paid: "有料"
+          partially_paid: "一部有料"
+
+    errors:
+      models:
+        flower_spot:
+          attributes:
+            flower_photos:
+              blank: "は1枚以上必要です"
+              content_type: "にはJPEGまたはPNG画像を指定してください"
+            name:
+              blank: "は必須項目です"
+            address:
+              blank: "は必須項目です"
+            peak_season_months:
+              blank: "を1つ以上選択してください"
+
+  # Deviseのメッセージの上書き例（必要に応じて）
+  # devise:
+  #   sessions:
+  #     signed_in: "ようこそ！ログインしました。"
+  #   registrations:
+  #     signed_up: "アカウント登録ありがとうございます！"
+
+  time:
+    formats:
+      standard: "%Y年%m月%d日"
+      simple: "%Y/%m/%d"
+      only_time: "%H:%M:%S"
+      jp_datetime: "%Y年%m月%d日 %H時%M分%S秒"
+      with_weekday: "%Y年%m月%d日(%a)"
+
+  errors:
+    messages:
+      blank: "を入力してください"
+      too_short: "は%{count}文字以上で入力してください"
+      too_long: "は%{count}文字以内で入力してください"
+      not_a_number: "は数値で入力してください"
+      greater_than: "%{count}より大きい値を入力してください"
+      less_than: "%{count}より小さい値を入力してください"
+      greater_than_or_equal_to: "%{count}以上の値を入力してください"
+      less_than_or_equal_to: "%{count}以下の値を入力してください"
+      invalid: "が無効です"
+      taken: "はすでに存在します"
+      wrong_length: "の長さが正しくありません"
