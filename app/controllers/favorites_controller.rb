@@ -4,6 +4,7 @@ class FavoritesController < ApplicationController
 
   def create
     favorite = current_user.favorites.build(flower_spot: @flower_spot)
+
     if favorite.save
       redirect_to flower_spot_path(@flower_spot), notice: "#{@flower_spot.name}をお気に入り登録しました。"
     else
