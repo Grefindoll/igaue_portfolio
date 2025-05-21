@@ -48,28 +48,16 @@
     * 投稿者本人は自身の投稿を編集・削除可能
     * 管理者は全ての情報を編集・削除可能
 
-## 6. データベース設計 (主要テーブル) 📊
-
-* `flower_spots` テーブル: お花畑情報
-    * 主なカラム: `name`, `address`, `latitude`, `longitude`, `peak_season_months` (見頃の月: 配列型), `parking` (enum), `fee_type` (enum), `fee_detail`, `flower_type_details`, `official_url`, `user_id`
-    * 写真はActive Storageで関連付け
-* `users` テーブル: ユーザー情報
-    * Deviseによる基本カラムに加え、`username`, `introduction`などを予定
-    * プロフィール画像もActive Storageで関連付け検討
-* `favorites` テーブル: お気に入り情報 (中間テーブル)
-    * `user_id`, `flower_spot_id`
-
-## 7. 特徴的なロジック ⚙️
+## 6. 特徴的なロジック ⚙️
 
 * **ジオコーディング**: 投稿された住所をGoogle Geocoding APIで緯度経度に変換して保存します。
 * **動的フィルタリング**: トップページの絞り込み条件を変更すると、地図上のピンがリアルタイムで更新されます。
 
-## 9. 管理者機能 🛠️
+## 7. 管理者機能 🛠️
 
-* 投稿の承認フローは設けず、ユーザーの投稿は即時公開されます。
 * 管理者は、全てのユーザー情報およびお花畑投稿の参照、編集、削除が可能です。
 
-## 10. 技術スタック 💻
+## 8. 技術スタック 💻
 
 * **バックエンド**: Ruby 3.1.2, Rails 7.1.3
 * **データベース**: PostgreSQL (14.17)
@@ -80,6 +68,6 @@
 * **地図・位置情報**: Google Maps API (Maps JavaScript API, Geocoding API)
 * **緯度経度変換・距離計算**: geocoder gem
 
-## 12. ER図 📈
+## 9. ER図 📈
 
 （ここにER図の画像を挿入します）
