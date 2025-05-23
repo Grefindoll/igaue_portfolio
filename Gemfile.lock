@@ -100,6 +100,9 @@ GEM
     connection_pool (2.5.3)
     crass (1.0.6)
     csv (3.3.4)
+    dartsass-rails (0.5.1)
+      railties (>= 6.0.0)
+      sass-embedded (~> 1.63)
     database_cleaner-active_record (2.2.1)
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0.0)
@@ -141,6 +144,27 @@ GEM
       csv (>= 3.0.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    google-protobuf (4.31.0)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.31.0-aarch64-linux-gnu)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.31.0-aarch64-linux-musl)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.31.0-arm64-darwin)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.31.0-x86_64-darwin)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.31.0-x86_64-linux-gnu)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.31.0-x86_64-linux-musl)
+      bigdecimal
+      rake (>= 13)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     image_processing (1.14.0)
@@ -344,6 +368,22 @@ GEM
       ffi (~> 1.12)
       logger
     rubyzip (2.4.1)
+    sass-embedded (1.89.0-aarch64-linux-gnu)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.89.0-aarch64-linux-musl)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.89.0-arm-linux-gnueabihf)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.89.0-arm-linux-musleabihf)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.89.0-arm64-darwin)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.89.0-x86_64-darwin)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.89.0-x86_64-linux-gnu)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.89.0-x86_64-linux-musl)
+      google-protobuf (~> 4.31)
     sassc (2.4.0)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
@@ -419,6 +459,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   capybara
+  dartsass-rails
   database_cleaner-active_record
   debug
   devise

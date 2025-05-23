@@ -51,6 +51,7 @@ gem 'devise-i18n'
 gem 'image_processing'
 gem 'geocoder'
 gem 'logger'
+gem 'dartsass-rails'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
