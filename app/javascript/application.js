@@ -2,4 +2,4 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 
-import "./custom/map_initializer" // この行を追記
+import "custom/map_initializer";
