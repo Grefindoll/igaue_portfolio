@@ -82,7 +82,7 @@ Rails.application.configure do
   # require "syslog/logger"
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new "app-name")
 
-  config.hosts << "igaiga2.herokuapp.com"
+  config.hosts << "igaiga2-e0095a82c4a9.herokuapp.com"
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
