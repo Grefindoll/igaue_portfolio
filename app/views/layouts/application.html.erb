@@ -19,7 +19,7 @@
     </main>
 
     <% if Rails.application.credentials.Maps_api_key %>
-      <script async src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.Maps_api_key %>&libraries=marker,places&v=beta"></script>
+      <script async src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.Maps_api_key %>&libraries=marker,places&v=beta" data-turbo-eval="false"></script>
     <% else %>
       <script>console.warn("Google Maps APIキーが Rails Credentials に設定されていません。地図機能は動作しません。");</script>
     <% end %>
