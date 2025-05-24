@@ -76,6 +76,5 @@ group :test do
   gem 'database_cleaner-active_record'
 end
 
-gem "tailwindcss-ruby", "~> 4.1"
-
-gem "tailwindcss-rails", "~> 4.2"
+gem "tailwindcss-rails", "~> 3.3.1"
+gem "tailwindcss-ruby", "~> 3.0"
