@@ -58,6 +58,7 @@
 ## 7. 技術スタック
 
 * **バックエンド**: Ruby 3.1.2, Rails 7.1.3
+* **開発補助ツール**: RSpec、Rubocop
 * **データベース**: PostgreSQL (14.17)
 * **フロントエンド**: HTML, CSS, JavaScript
 * **CSSフレームワーク**: Tailwind CSS
