@@ -7,13 +7,14 @@
         <% end %>
       </div>
 
-      <div class="flex items-center space-x-2 sm:space-x-3 ml-42">
+      <div class="flex items-center justify-end gap-3">
         <% if user_signed_in? %>
-          <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "text-xs sm:text-sm text-gray-600 hover:text-pink-600 px-2 py-1" %>
+          <%# ↓ 各要素で px (padding) を使って「内側の余白」を調整します %>
+          <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "inline-block text-xs sm:text-sm text-gray-600 hover:text-pink-600 px-1 sm:px-2 py-1" %>
         <% else %>
-          <%= button_to "ゲストログイン", guest_sign_in_path, method: :post, class: "bg-green-500 text-white text-xs font-medium py-1 px-2 rounded hover:bg-green-600" %>
-          <%= link_to "ログイン", new_user_session_path, class: "text-xs sm:text-sm text-gray-600 hover:text-pink-600 px-2 py-1" %>
-          <%= link_to "新規登録", new_user_registration_path, class: "text-xs sm:text-sm text-pink-600 hover:text-pink-700 font-medium border border-pink-500 py-1 px-2 rounded hover:bg-pink-50" %>
+          <%= button_to "ゲストログイン", guest_sign_in_path, method: :post, form_class: 'contents', class: "bg-green-500 text-white text-xs sm:text-base font-medium py-1 px-2 sm:px-2 rounded hover:bg-green-600" %>
+          <%= link_to "ログイン", new_user_session_path, class: "inline-block text-xs sm:text-sm text-gray-600 hover:text-pink-600 px-1 sm:px-2 py-1" %>
+          <%= link_to "新規登録", new_user_registration_path, class: "inline-block text-xs sm:text-sm text-pink-600 hover:text-pink-700 font-medium py-1 px-1 sm:px-2 rounded hover:bg-pink-50" %>
         <% end %>
       </div>
     </div>
