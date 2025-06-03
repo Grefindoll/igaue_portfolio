@@ -63,6 +63,7 @@
 * **フロントエンド**: HTML, CSS, JavaScript
 * **CSSフレームワーク**: Tailwind CSS
 * **画像アップロード**: Active Storage, image_processing gem
+* **外部ストレージ**: Amazon S3
 * **ユーザー認証**: Devise gem (ゲストログイン機能含む)
 * **地図・位置情報**: Google Maps API (Maps JavaScript API, Geocoding API)
 * **緯度経度変換・距離計算**: geocoder gem
